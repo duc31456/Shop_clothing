@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".login_activity"
+    android:background="@drawable/backgroud_login">
+
+    <TextView
+        android:layout_width="160dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="125dp"
+        android:layout_marginTop="70dp"
+        android:gravity="center"
+        android:text="Đăng nhập"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="190dp"
+        android:background="@drawable/custom_edittextlogin"
+        android:drawableLeft="@drawable/ic_launcherlogin"
+        android:drawablePadding="5dp"
+        android:hint="Tên đăng nhập"
+        android:paddingLeft="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white" />
+
+    <EditText
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="250dp"
+        android:background="@drawable/custom_edittextlogin"
+        android:drawableLeft="@drawable/ic_baseline_password"
+        android:drawablePadding="5dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingLeft="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="310dp"
+        android:gravity="center"
+        android:text="Quên mật khẩu?"
+        android:textColor="@color/white"
+        android:textSize="13sp" />
+
+    <android.widget.Button
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="380dp"
+        android:background="@drawable/custom_buttonlogin"
+        android:text="Đăng nhập"
+        android:textColor="#1E88E5" />
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="440dp"
+        android:gravity="center|right|top"
+        android:text="Nếu bạn chưa có tài khoản?"
+        android:textColor="@color/white"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/btnregister"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="235dp"
+        android:layout_marginTop="437dp"
+        android:gravity="center|left|top"
+        android:text="Đăng ký"
+        android:textColor="#E53935"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <android.widget.Button
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="550dp"
+        android:background="@drawable/custom_buttonlogin"
+        android:text="Google"
+        android:drawableStart="@drawable/ic_google"
+        android:paddingLeft="20dp"
+        android:textColor="#1E88E5" />
+
+    <android.widget.Button
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="550dp"
+        android:background="@drawable/custom_buttonlogin"
+        android:drawableStart="@drawable/ic_facebook"
+        android:paddingLeft="20dp"
+        android:text="Facebook"
+        android:textColor="#1E88E5" />
+
+</RelativeLayout>

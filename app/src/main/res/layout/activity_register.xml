@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".register_activity"
+    android:background="@drawable/backgroud_login">
+
+    <TextView
+        android:layout_width="160dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="125dp"
+        android:layout_marginTop="70dp"
+        android:gravity="center"
+        android:text="Đăng ký"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="160dp"
+        android:background="@drawable/custom_edittextlogin"
+        android:drawableLeft="@drawable/ic_launcherlogin"
+        android:drawablePadding="5dp"
+        android:hint="Tên đăng nhập"
+        android:paddingLeft="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white" />
+
+    <EditText
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="220dp"
+        android:background="@drawable/custom_edittextlogin"
+        android:drawableLeft="@drawable/ic_myprofile"
+        android:drawablePadding="5dp"
+        android:hint="Tên người dùng"
+        android:paddingLeft="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white" />
+    <EditText
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="280dp"
+        android:background="@drawable/custom_edittextlogin"
+        android:drawableLeft="@drawable/ic_baseline_email"
+        android:drawablePadding="5dp"
+        android:hint="Email"
+        android:paddingLeft="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white" />
+
+    <EditText
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="340dp"
+        android:background="@drawable/custom_edittextlogin"
+        android:drawableLeft="@drawable/ic_baseline_local_phone_24"
+        android:drawablePadding="5dp"
+        android:hint="Số điện thoại"
+        android:paddingLeft="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white" />
+
+    <EditText
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="400dp"
+        android:background="@drawable/custom_edittextlogin"
+        android:drawableLeft="@drawable/ic_baseline_password"
+        android:drawablePadding="5dp"
+        android:hint="Mật khẩu"
+        android:inputType="textPassword"
+        android:paddingLeft="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white" />
+
+    <EditText
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="460dp"
+        android:background="@drawable/custom_edittextlogin"
+        android:drawableLeft="@drawable/ic_security"
+        android:drawablePadding="5dp"
+        android:hint="Xác nhận mật khẩu"
+        android:inputType="textPassword"
+        android:paddingLeft="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white" />
+
+    <android.widget.Button
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="550dp"
+        android:background="@drawable/custom_buttonlogin"
+        android:text="Đăng ký"
+        android:textColor="#1E88E5" />
+</RelativeLayout>

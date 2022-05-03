@@ -8,17 +8,19 @@
     android:background="@drawable/backgroud_login">
 
     <TextView
+        style="@style/dang_nhap"
         android:layout_width="160dp"
         android:layout_height="60dp"
         android:layout_marginLeft="125dp"
         android:layout_marginTop="70dp"
         android:gravity="center"
         android:text="Đăng nhập"
-        android:textColor="@color/white"
+        android:textColor="#FDD835"
         android:textSize="30sp"
         android:textStyle="bold" />
 
     <EditText
+        android:id="@+id/username"
         android:layout_width="340dp"
         android:layout_height="50dp"
         android:layout_marginLeft="30dp"
@@ -32,6 +34,7 @@
         android:textColorHint="@color/white" />
 
     <EditText
+        android:id="@+id/password"
         android:layout_width="340dp"
         android:layout_height="50dp"
         android:layout_marginLeft="30dp"
@@ -56,13 +59,15 @@
         android:textSize="13sp" />
 
     <android.widget.Button
+        android:id="@+id/btnlogin"
         android:layout_width="340dp"
         android:layout_height="50dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="380dp"
         android:background="@drawable/custom_buttonlogin"
         android:text="Đăng nhập"
-        android:textColor="#1E88E5" />
+        android:textColor="#1E88E5"
+        />
 
     <TextView
         android:layout_width="200dp"
@@ -86,26 +91,39 @@
         android:textSize="17sp"
         android:textStyle="bold" />
 
-    <android.widget.Button
-        android:layout_width="180dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="550dp"
-        android:background="@drawable/custom_buttonlogin"
-        android:text="Google"
-        android:drawableStart="@drawable/ic_google"
-        android:paddingLeft="20dp"
-        android:textColor="#1E88E5" />
 
-    <android.widget.Button
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/btnlogingoogle"
         android:layout_width="180dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="200dp"
-        android:layout_marginTop="550dp"
-        android:background="@drawable/custom_buttonlogin"
-        android:drawableStart="@drawable/ic_facebook"
-        android:paddingLeft="20dp"
-        android:text="Facebook"
-        android:textColor="#1E88E5" />
+        android:layout_marginLeft="115dp"
+        android:layout_marginTop="530dp" />
+
+    <TextView
+        style="@style/ten_sanpham"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="180dp"
+        android:layout_marginTop="590dp"
+        android:fontFamily="sans-serif"
+        android:text="Hoặc"
+        android:textColor="#FDD835"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/btnloginfacebook"
+        style="@style/FacebookLoginButton"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="640dp"
+        android:background="#1E88E5"
+        android:gravity="center_horizontal"
+        android:paddingStart="20dp"
+        android:textColor="@color/black"
+        android:textSize="21sp"
+        android:textStyle="normal"
+        app:com_facebook_login_text="@string/loginFacebookButton" />
 
 </RelativeLayout>

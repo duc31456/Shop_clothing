@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="dang_nhap">
+        <item name="fontFamily">@font/text</item>
+
+    </style>
+
+    <style name="dang_ky">
+        <item name="fontFamily">@font/font_dangky</item>
+    </style>
+
+    <style name="ten_sanpham">
+        <item name="fontFamily">@font/semibold</item>
+    </style>
+    <style name="gia_sanpham">
+        <item name="fontFamily">@font/regular</item>
+    </style>
+    <style name="mota_sanpham">
+        <item name="fontFamily">@font/regular</item>
+    </style>
+    <style name="gio_hang_trong">
+        <item name="fontFamily">@font/failing2</item>
+    </style>
+    <style name="thanh_toan">
+        <item name="fontFamily">@font/failing3</item>
+    </style>
+    <style name="FacebookLoginButton">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+</resources>

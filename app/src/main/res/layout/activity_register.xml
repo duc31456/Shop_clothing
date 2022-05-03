@@ -8,21 +8,31 @@
     android:background="@drawable/backgroud_login">
 
     <TextView
+        style="@style/dang_ky"
         android:layout_width="160dp"
         android:layout_height="60dp"
-        android:layout_marginLeft="125dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginLeft="118dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="Đăng ký"
-        android:textColor="@color/white"
+        android:textColor="#FDD835"
         android:textSize="30sp"
         android:textStyle="bold" />
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/avatar"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="125dp"
+        android:layout_marginTop="90dp"
+        android:src="@drawable/programmer" />
+
     <EditText
+        android:id="@+id/input_username"
         android:layout_width="340dp"
         android:layout_height="50dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="260dp"
         android:background="@drawable/custom_edittextlogin"
         android:drawableLeft="@drawable/ic_launcherlogin"
         android:drawablePadding="5dp"
@@ -32,10 +42,11 @@
         android:textColorHint="@color/white" />
 
     <EditText
+        android:id="@+id/input_fullname"
         android:layout_width="340dp"
         android:layout_height="50dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="320dp"
         android:background="@drawable/custom_edittextlogin"
         android:drawableLeft="@drawable/ic_myprofile"
         android:drawablePadding="5dp"
@@ -43,37 +54,43 @@
         android:paddingLeft="10dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
+
     <EditText
+        android:id="@+id/input_email"
         android:layout_width="340dp"
         android:layout_height="50dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="280dp"
+        android:layout_marginTop="380dp"
         android:background="@drawable/custom_edittextlogin"
         android:drawableLeft="@drawable/ic_baseline_email"
         android:drawablePadding="5dp"
         android:hint="Email"
+        android:inputType="textEmailAddress"
         android:paddingLeft="10dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
 
     <EditText
+        android:id="@+id/input_phone"
         android:layout_width="340dp"
         android:layout_height="50dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="340dp"
+        android:layout_marginTop="440dp"
         android:background="@drawable/custom_edittextlogin"
         android:drawableLeft="@drawable/ic_baseline_local_phone_24"
         android:drawablePadding="5dp"
         android:hint="Số điện thoại"
+        android:inputType="phone"
         android:paddingLeft="10dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/input_password"
         android:layout_width="340dp"
         android:layout_height="50dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="500dp"
         android:background="@drawable/custom_edittextlogin"
         android:drawableLeft="@drawable/ic_baseline_password"
         android:drawablePadding="5dp"
@@ -81,13 +98,15 @@
         android:inputType="textPassword"
         android:paddingLeft="10dp"
         android:textColor="@color/white"
-        android:textColorHint="@color/white" />
+        android:textColorHint="@color/white"
+        app:passwordToggleEnabled="true" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/input_confirmpass"
         android:layout_width="340dp"
         android:layout_height="50dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="460dp"
+        android:layout_marginTop="560dp"
         android:background="@drawable/custom_edittextlogin"
         android:drawableLeft="@drawable/ic_security"
         android:drawablePadding="5dp"
@@ -95,13 +114,15 @@
         android:inputType="textPassword"
         android:paddingLeft="10dp"
         android:textColor="@color/white"
-        android:textColorHint="@color/white" />
+        android:textColorHint="@color/white"
+        app:passwordToggleEnabled="true"/>
 
     <android.widget.Button
+        android:id="@+id/btndangky"
         android:layout_width="340dp"
         android:layout_height="50dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="550dp"
+        android:layout_marginTop="650dp"
         android:background="@drawable/custom_buttonlogin"
         android:text="Đăng ký"
         android:textColor="#1E88E5" />

@@ -6,18 +6,19 @@
     android:gravity="bottom"
     android:orientation="vertical">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imagekhachhang"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginLeft="30dp"
-        android:background="@drawable/ic_launcherlogin" />
+        android:layout_marginLeft="30dp" />
 
     <TextView
-        android:layout_width="120dp"
+        android:id="@+id/tenkhachhang"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="23dp"
         android:layout_marginTop="5dp"
-        android:gravity="center"
+        android:gravity="left"
         android:text="HELLO"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -25,7 +26,8 @@
     <TextView
         android:layout_width="230dp"
         android:layout_height="25dp"
-        android:textSize="20sp"
+        android:textSize="23sp"
+        style="@style/dang_ky"
         android:text="Welcome to sporter shop"
         android:textColor="@color/white"
         android:layout_marginTop="5dp"

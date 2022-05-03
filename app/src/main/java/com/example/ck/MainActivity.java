@@ -1,5 +1,6 @@
 package com.example.ck;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,26 +11,62 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.ck.fragment.fragment_donam;
 import com.example.ck.fragment.fragment_donu;
 import com.example.ck.fragment.fragment_home;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    GoogleSignInClient googleSignInClient;
+    GoogleSignInAccount account;
 
     private static final int NAV_HOME = 0;
-    private static final int NAV_FAVORITE = 1;
-    private static final int NAV_HISTORY = 2;
+    private static final int NAV_DONU = 1;
+    private static final int NAV_DONAM = 2;
+    TextView tenkhachhang;
+    CircleImageView imagekhachhang;
 
     private int current_fragment = NAV_HOME;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = findViewById(R.id.toobar);
@@ -41,15 +78,53 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView = findViewById(R.id.navigation_view);
+        View headerView = navigationView.getHeaderView(0);
+        tenkhachhang = headerView.findViewById(R.id.tenkhachhang);
+        imagekhachhang = headerView.findViewById(R.id.imagekhachhang);
+        imagekhachhang.setImageResource(R.drawable.programmer);
         navigationView.setNavigationItemSelectedListener(this);
 
         //lúc chạy thì set fragment sẽ là home
         replace_fragment(new fragment_home());
         //check clickable item home trong navigation
         navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
-    }
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        //nếu đã đăng nhập thì hiện đăng xuất và thông tin tài khoản
+        googleSignInClient = GoogleSignIn.getClient(this, gso);
+        account = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
+        if (account != null) {
+            change_visible();
+            tenkhachhang.setText("Xin chào, "+account.getDisplayName());
+            Glide.with(navigationView).load(account.getPhotoUrl()).into(imagekhachhang);
 
+
+        }
+    }
+    private void change_visible()
+    {
+        MenuItem item_thongtin =  navigationView.getMenu().findItem(R.id.nav_thongtintaikhoan);
+        MenuItem item_dangnhap =  navigationView.getMenu().findItem(R.id.nav_dangnhap);
+        MenuItem item_dangxuat =  navigationView.getMenu().findItem(R.id.nav_dangxuat);
+
+        item_dangnhap.setVisible(false);
+        item_dangxuat.setVisible(true);
+        item_thongtin.setVisible(true);
+    }
+    // đăng xuất
+    private void signOut() {
+        googleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                      Intent intent = new Intent(MainActivity.this, login_activity.class);
+                      startActivity(intent);
+                        Toast.makeText(MainActivity.this, "Đăng xuất thành công!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -63,18 +138,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if(id == R.id.nav_donam)
         {
-            if(current_fragment != NAV_FAVORITE)
+            if(current_fragment != NAV_DONAM)
             {
                 replace_fragment(new fragment_donam());
-                current_fragment = NAV_FAVORITE;
+                current_fragment = NAV_DONAM;
             }
         }
         else if(id == R.id.nav_donu)
         {
-            if(current_fragment != NAV_HISTORY)
+            if(current_fragment != NAV_DONU)
             {
                 replace_fragment(new fragment_donu());
-                current_fragment = NAV_HISTORY;
+                current_fragment = NAV_DONU;
             }
         }
         else if(id == R.id.nav_dodoi){
@@ -84,10 +159,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(MainActivity.this, login_activity.class);
             startActivity(intent);
 
-        }else if(id == R.id.nav_dangky)
+        }else if(id == R.id.nav_dangxuat)
         {
-            Intent intent = new Intent(MainActivity.this, register_activity.class);
-            startActivity(intent);
+           signOut();
+        }else if(id == R.id.nav_thongtintaikhoan)
+        {
+           // signOut();
         }
 
         //đóng navigation view lại
@@ -110,5 +187,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_cart, menu);
         return super.onCreateOptionsMenu(menu);
+
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.item_cart)
+        {
+            Intent intent = new Intent(MainActivity.this, cart_activity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
 }

@@ -8,17 +8,15 @@
     <string name="nav_account">Acount</string>
     <string name="nav_myprofile">Đăng nhập</string>
     <string name="nav_changepass">Đăng ký</string>
-
+    <string name="nav_dangxuat">Đăng xuất</string>
+    <string name="naw_thongtintaikhoan">Thông tin tài khoản</string>
 
     <string name="nav_stringopen">Opennavigation</string>
     <string name="nav_stringclose">Close</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
+
+
+    <string name="facebook_app_id">1234</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">56789</string>
+    <string name="loginFacebookButton">Đăng nhập Facebook</string>
 </resources>

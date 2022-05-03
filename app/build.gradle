@@ -49,4 +49,27 @@ dependencies {
     // For control over item selection of both touch and mouse driven selection
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
     implementation 'me.relex:circleindicator:2.1.6'
+
+    //import gson và retrofit2
+    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    //import gif drawable
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
+
+    //import circleimage
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    //import firebase
+    implementation platform('com.google.firebase:firebase-bom:29.3.1')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.android.gms:play-services-auth:20.2.0'
+
+    //import picasso và glide
+    implementation 'com.github.bumptech.glide:glide:4.13.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
+
+    //import facebook api
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
 }

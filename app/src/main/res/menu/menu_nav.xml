@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item android:id="@+id/nav_home"
             android:title="@string/nav_home"
@@ -24,10 +25,18 @@
         <item android:id="@+id/nav_dangnhap"
             android:title="@string/nav_myprofile"
             android:icon="@drawable/ic_baseline_login"/>
-
-        <item android:id="@+id/nav_dangky"
-            android:title="@string/nav_changepass"
-            android:icon="@drawable/ic_baseline_app_registration_24"/>
+        <item
+            android:id="@+id/nav_thongtintaikhoan"
+            android:icon="@drawable/ic_launcherlogin"
+            android:title="@string/naw_thongtintaikhoan"
+            android:visible="false"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/nav_dangxuat"
+            android:icon="@drawable/ic_baseline_logout_24"
+            android:title="@string/nav_dangxuat"
+            android:visible="false"
+            app:showAsAction="ifRoom" />
     </menu>
     </item>
 

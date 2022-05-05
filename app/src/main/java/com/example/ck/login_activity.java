@@ -20,8 +20,17 @@ import android.widget.Toast;
 
 import com.example.ck.item_class.class_user;
 import com.example.ck.request_api.CallApiUser;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.auth.api.identity.SignInCredential;
@@ -38,6 +47,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -52,7 +65,11 @@ public class login_activity extends AppCompatActivity implements GoogleApiClient
 
     GoogleSignInClient googleSignInClient;
      private static final Integer SIGN_IN = 1;
-     private FirebaseAuth auth;
+
+    Intent intent;
+
+    CallbackManager callbackManager;
+    LoginButton loginfacebook;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +78,8 @@ public class login_activity extends AppCompatActivity implements GoogleApiClient
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
+        // set cho facebookapi
+        callbackManager = CallbackManager.Factory.create();
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
 
@@ -69,14 +88,12 @@ public class login_activity extends AppCompatActivity implements GoogleApiClient
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         btnlogingoogle = findViewById(R.id.btnlogingoogle);
+        loginfacebook = findViewById(R.id.btnloginfacebook);
+
         //set size cho button logingoogle
         btnlogingoogle.setSize(SignInButton.SIZE_STANDARD);
+        call_googleApi();
 
-        // yêu cầu người dùng cung cấp mail, tên và hình ảnh
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
-                requestEmail().build();
-        googleSignInClient = GoogleSignIn.getClient(this, gso);
-       // auth = FirebaseAuth.getInstance();
       btnregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,8 +116,58 @@ public class login_activity extends AppCompatActivity implements GoogleApiClient
             }
         });
 
+        // xin quyền fb lấy thông tin cá nhân
+        loginfacebook.setReadPermissions(Arrays.asList("public_profile", "email"));
+        set_loginfacebook();
     }
 
+    private void set_loginfacebook()
+    {
+        loginfacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        Log.d("JSON", response.getJSONObject().toString());
+                        try {
+                            MainActivity.firstname = object.getString("first_name");
+                            MainActivity.email = object.getString("email");
+                            MainActivity.image = object.getString("id");
+                            MainActivity.profile= response.getJSONObject().getJSONObject("picture").getJSONObject("data").getString("url");
+                          //  Toast.makeText(login_activity.this, ""+MainActivity., Toast.LENGTH_SHORT).show();
+                            intent = new Intent(login_activity.this, MainActivity.class);
+                            startActivity(intent);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+                Bundle param = new Bundle();
+                param.putString("fields", "name, email, gender, first_name, picture");
+                request.setParameters(param);
+                request.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
+    }
+    private void call_googleApi()
+    {
+        // call api google
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
+                requestEmail().build();
+        googleSignInClient = GoogleSignIn.getClient(this, gso);
+    }
     public void callApiUser() {
         CallApiUser.callApi.get_ApiUser().enqueue(new Callback<List<class_user>>() {
             @Override
@@ -152,6 +219,7 @@ public class login_activity extends AppCompatActivity implements GoogleApiClient
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
        //trả kết quả người dùng đăng nhập google
         if (requestCode == SIGN_IN)
         {
@@ -173,5 +241,11 @@ public class login_activity extends AppCompatActivity implements GoogleApiClient
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    @Override
+    protected void onStart() {
+
+        super.onStart();
     }
 }

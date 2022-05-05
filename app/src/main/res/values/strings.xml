@@ -5,6 +5,7 @@
     <string name="nav_donu">Đồ thể thao nữ</string>
     <string name="nav_dodoi">Đồ đôi</string>
     <string name="nav_gopy">Góp ý</string>
+    <string name="nav_map">Địa chỉ shop</string>
     <string name="nav_account">Acount</string>
     <string name="nav_myprofile">Đăng nhập</string>
     <string name="nav_changepass">Đăng ký</string>
@@ -15,8 +16,11 @@
     <string name="nav_stringclose">Close</string>
 
 
-    <string name="facebook_app_id">1234</string>
-    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_app_id">3319763541579735</string>
+    <string name="fb_login_protocol_scheme">fb3319763541579735</string>
     <string name="facebook_client_token">56789</string>
     <string name="loginFacebookButton">Đăng nhập Facebook</string>
+
+
+    <string name="map_api_key">AIzaSyC36Uqom822sc9fzsDzTWWwex-5ieCwMIo</string>
 </resources>

@@ -14,10 +14,17 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.ck.item_class.userModel.class_user;
+import com.example.ck.request_api.CallApiUser;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class register_activity extends AppCompatActivity {
     EditText input_username, input_fullname, input_email, input_phone, input_password, input_confirmpass;
@@ -50,6 +57,21 @@ public class register_activity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_FOLDER);
             }
         });
+    }
+
+    public void dangkytaikhoan()
+    {
+//        CallApiUser.callApi.post_ApiUser().enqueue(new Callback<List<class_user>>() {
+//            @Override
+//            public void onResponse(Call<List<class_user>> call, Response<List<class_user>> response) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<class_user>> call, Throwable t) {
+//
+//            }
+//        });
     }
 
     @Override

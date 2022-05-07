@@ -1,4 +1,6 @@
-package com.example.ck.item_class;
+package com.example.ck.item_class.userModel;
+
+import com.example.ck.item_class.userModel.class_account;
 
 public class class_user {
     private String id;

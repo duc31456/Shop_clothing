@@ -1,10 +1,12 @@
 package com.example.ck.fragment;
 
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
@@ -13,19 +15,26 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ck.MainActivity;
 import com.example.ck.R;
 import com.example.ck.adapter.home_adapter;
-import com.example.ck.item_class.class_home;
+import com.example.ck.item_class.productModel.class_product;
+import com.example.ck.login_activity;
+import com.example.ck.request_api.CallApiUser;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import me.relex.circleindicator.CircleIndicator;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class fragment_home extends Fragment {
     private RecyclerView recyclerView;
     private home_adapter adapter;
     ViewFlipper flipper;
 
+    ArrayList<class_product> products;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,28 +44,35 @@ public class fragment_home extends Fragment {
         flipper.setFlipInterval(3000);
         flipper.setAutoStart(true);
 
-
+        CallApiProduct();
         recyclerView = view.findViewById(R.id.recyclerView);
         adapter = new home_adapter(this);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(gridLayoutManager);
 
-        adapter.setdata(getList());
-        recyclerView.setAdapter(adapter);
+        CallApiProduct();
         return view;
     }
 
-    private ArrayList<class_home> getList()
-    {
-        ArrayList<class_home> list = new ArrayList<>();
-        list.add(new class_home(R.drawable.ao_den, "Áo đen nhập khẩu"));
-        list.add(new class_home(R.drawable.ao_thun_den, "Áo thun đen nhập khẩu"));
-        list.add(new class_home(R.drawable.ao_thun_nam_3, "Áo thun nam nhập khẩu"));
-        list.add(new class_home(R.drawable.ao_thun_nam_4, "Áo thun nam xuất khẩu"));
-        list.add(new class_home(R.drawable.ao_thun_trang, "Áo thun trăng nhập khẩu"));
-        list.add(new class_home(R.drawable.ao_trang, "Áo trang xuất khẩu"));
 
-        return list;
+    private void CallApiProduct()
+    {
+        CallApiUser.callApi.getApiProduct().enqueue(new Callback<ArrayList<class_product>>() {
+            @Override
+            public void onResponse(Call<ArrayList<class_product>> call, Response<ArrayList<class_product>> response) {
+                if (response.isSuccessful())
+                {
+                    products = new ArrayList<>();
+                    products = response.body();
+                    adapter.setdata(products);
+                    recyclerView.setAdapter(adapter);
+                }
+            }
+            @Override
+            public void onFailure(Call<ArrayList<class_product>> call, Throwable t) {
+                Log.d("BBB",""+t);
+            }
+        });
     }
 }

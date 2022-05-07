@@ -2,12 +2,9 @@ package com.example.ck;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.accounts.Account;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,7 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ck.item_class.class_user;
+import com.example.ck.item_class.userModel.class_user;
 import com.example.ck.request_api.CallApiUser;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -31,21 +28,15 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.identity.BeginSignInRequest;
-import com.google.android.gms.auth.api.identity.SignInCredential;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -126,7 +117,8 @@ public class login_activity extends AppCompatActivity implements GoogleApiClient
         loginfacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                AccessToken accessToken = AccessToken.getCurrentAccessToken();
+                GraphRequest request = GraphRequest.newMeRequest(accessToken, new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         Log.d("JSON", response.getJSONObject().toString());
@@ -135,9 +127,9 @@ public class login_activity extends AppCompatActivity implements GoogleApiClient
                             MainActivity.email = object.getString("email");
                             MainActivity.image = object.getString("id");
                             MainActivity.profile= response.getJSONObject().getJSONObject("picture").getJSONObject("data").getString("url");
-                          //  Toast.makeText(login_activity.this, ""+MainActivity., Toast.LENGTH_SHORT).show();
                             intent = new Intent(login_activity.this, MainActivity.class);
                             startActivity(intent);
+                            finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -182,6 +174,7 @@ public class login_activity extends AppCompatActivity implements GoogleApiClient
                            && password.getText().toString().contains(users.get(i).getAccount().getPassword()))
                            {
                                Toast.makeText(login_activity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+
                                Intent intent = new Intent(login_activity.this, MainActivity.class);
                                startActivity(intent);
                                return;
@@ -198,7 +191,7 @@ public class login_activity extends AppCompatActivity implements GoogleApiClient
 
             @Override
             public void onFailure(Call<List<class_user>> call, Throwable t) {
-                Toast.makeText(login_activity.this, "" + t, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(login_activity.this, "" + t, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -245,7 +238,8 @@ public class login_activity extends AppCompatActivity implements GoogleApiClient
 
     @Override
     protected void onStart() {
-
+        LoginManager.getInstance().logOut();
         super.onStart();
     }
+
 }

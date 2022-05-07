@@ -10,6 +10,7 @@
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/custom_bg.xml" value="0.1655" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/custom_buttonlogin.xml" value="0.1655" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/custom_circleindicator.xml" value="0.1" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/custom_discount.xml" value="0.1" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/ic_account.xml" value="0.1655" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/ic_arrow.xml" value="0.1655" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/ic_back.xml" value="0.1655" />
@@ -36,6 +37,7 @@
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/ic_shopping_cart.xml" value="0.1655" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/font/font.xml" value="0.18888888888888888" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/activity_cart.xml" value="0.264" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/activity_delivery.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/activity_detailproduct.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/activity_main.xml" value="0.264" />
@@ -47,7 +49,7 @@
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/fragment_map.xml" value="0.176" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/item_cart.xml" value="0.4" />
-        <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/item_listhome.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/item_listhome.xml" value="0.2" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/layout_header.xml" value="0.4" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/menu/menu_cart.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/menu/menu_nav.xml" value="0.25416666666666665" />

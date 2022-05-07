@@ -1,6 +1,7 @@
 package com.example.ck.request_api;
 
-import com.example.ck.item_class.class_user;
+import com.example.ck.item_class.productModel.class_product;
+import com.example.ck.item_class.userModel.class_user;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -21,12 +22,12 @@ import retrofit2.http.Path;
 public interface CallApiUser {
 
     Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
-    CallApiUser callApi = new Retrofit.Builder().baseUrl("http://192.168.1.9:3000/").
+    CallApiUser callApi = new Retrofit.Builder().baseUrl("http://192.168.1.7:3000/").
             addConverterFactory(GsonConverterFactory.create(gson)).
             build().create(CallApiUser.class);
 
     //Hàm select user
-    @GET("http://192.168.1.9:3000/api/v1/users/")
+    @GET("http://192.168.1.7:3000/api/v1/users/")
     Call<List<class_user>> get_ApiUser();
 
     //Hàm create user có ảnh
@@ -50,4 +51,9 @@ public interface CallApiUser {
                                        @Path("rpw") RequestBody resetpassword,
                                        @Path("n") RequestBody name,
                                        @Path("l") MultipartBody.Part avatar);
+
+    //Hàm select product
+    @GET("http://192.168.1.7:3000/api/v1/products/")
+    Call<ArrayList<class_product>> getApiProduct();
+
 }

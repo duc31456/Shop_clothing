@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         call_googleApi();
         //nếu đăng nhập fb
         if (!email.isEmpty() && !firstname.isEmpty() && !image.isEmpty()) {
-            Toast.makeText(this, email + firstname, Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, email + firstname, Toast.LENGTH_SHORT).show();
             change_visible();
             tenkhachhang.setText("Xin chào, "+firstname);
             try{
@@ -155,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                       Intent intent = new Intent(MainActivity.this, login_activity.class);
                       startActivity(intent);
                         Toast.makeText(MainActivity.this, "Đăng xuất mail thành công!", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 });
     }

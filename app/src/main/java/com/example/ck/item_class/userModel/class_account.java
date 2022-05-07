@@ -1,4 +1,4 @@
-package com.example.ck.item_class;
+package com.example.ck.item_class.userModel;
 
 public class class_account {
     private String username;

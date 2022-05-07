@@ -72,8 +72,18 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
 
     //import facebook api
-    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+    implementation 'com.facebook.android:facebook-android-sdk:[8,9)'
 
     //import googlemap
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
+
+    //import itextpdf
+    implementation 'com.itextpdf:itextpdf:5.0.6'
+    //import Rxjava
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+
+    //import dexter
+    implementation 'com.karumi:dexter:6.2.3'
+
 }

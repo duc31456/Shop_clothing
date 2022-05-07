@@ -10,27 +10,27 @@
         android:layout_width="match_parent"
         android:layout_height="200dp">
         <ImageView
-            android:src="@drawable/flipper"
+            android:src="@drawable/cate_football"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
         <ImageView
-            android:src="@drawable/flipper_1"
+            android:src="@drawable/cate_gym"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
         <ImageView
-            android:src="@drawable/flipper_2"
+            android:src="@drawable/cate_kid"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
         <ImageView
-            android:src="@drawable/ao_cap4"
+            android:src="@drawable/cate_sport"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
         <ImageView
-            android:src="@drawable/ao_cap_2"
+            android:src="@drawable/cate_girl"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

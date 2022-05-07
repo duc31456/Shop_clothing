@@ -1,30 +1,32 @@
 package com.example.ck.adapter;
 
-import android.content.Context;
+import android.graphics.Paint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ck.R;
 import com.example.ck.fragment.fragment_home;
-import com.example.ck.item_class.class_home;
+import com.example.ck.item_class.productModel.class_product;
 
 import java.util.ArrayList;
 
 public class home_adapter extends RecyclerView.Adapter<home_adapter.home_viewHolder>{
     private fragment_home context;
-    private ArrayList<class_home> homes;
+    private ArrayList<class_product> homes;
 
     public home_adapter(fragment_home context) {
         this.context = context;
     }
 
-    public void setdata(ArrayList<class_home> listhome)
+    public void setdata(ArrayList<class_product> listhome)
     {
         this.homes = listhome;
         notifyDataSetChanged();
@@ -39,14 +41,20 @@ public class home_adapter extends RecyclerView.Adapter<home_adapter.home_viewHol
 
     @Override
     public void onBindViewHolder(@NonNull home_viewHolder holder, int position) {
-        class_home list = homes.get(position);
+        class_product list = homes.get(position);
         if(list == null)
         {
             return;
+
         }
         else {
-            holder.hinh.setImageResource(list.getHinh());
-            holder.mota.setText(list.getMota());
+            // thêm gạch cho giá ban đầu chưa khuyến mãi
+            holder.giabandau.setPaintFlags(holder.giabandau.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.hinh.setImageResource(R.drawable.ao_den);
+            holder.mota.setText(list.getName());
+            holder.giabandau.setText(String.valueOf(list.getPrice()));
+            holder.giaban.setText(String.valueOf(list.getPrice()-(list.getDiscount()*100)));
+            holder.giamgia.setText("-"+list.getDiscount()+"%");
         }
     }
 
@@ -58,12 +66,16 @@ public class home_adapter extends RecyclerView.Adapter<home_adapter.home_viewHol
     public class home_viewHolder extends RecyclerView.ViewHolder
     {
         private ImageView hinh;
-        private TextView mota;
+        private TextView mota, giaban, giabandau, giamgia;
+
         public home_viewHolder(@NonNull View itemView) {
             super(itemView);
 
             hinh = itemView.findViewById(R.id.image_home);
             mota = itemView.findViewById(R.id.mota_imagehome);
+            giaban = itemView.findViewById(R.id.gia_home);
+            giabandau = itemView.findViewById(R.id.gia2_home);
+            giamgia = itemView.findViewById(R.id.discount);
         }
     }
 }

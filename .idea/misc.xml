@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/desom/.gradle/caches/transforms-3/f601d5a09848da0f31785d01b6d76af8/transformed/facebook-share-4.42.0/res/drawable/com_facebook_button_send_background.xml" value="0.124" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable-v24/custom_discountCategory.xml" value="0.1" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable-v24/custom_discountcategory.xml" value="0.1" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/cart_button_bg.xml" value="0.1655" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/change_button.xml" value="0.102" />
@@ -18,10 +20,14 @@
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/ic_baseline_email.xml" value="0.1655" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/ic_baseline_exit.xml" value="0.1" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/ic_baseline_exit_to_app_24.xml" value="0.1" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/ic_baseline_history_24.xml" value="0.1" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/ic_baseline_login.xml" value="0.1" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/ic_baseline_password.xml" value="0.1655" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/ic_baseline_sports.xml" value="0.1" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/ic_baseline_sports_24.xml" value="0.1" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/ic_baseline_sports_football_24.xml" value="0.1" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/ic_baseline_sports_handball.xml" value="0.1655" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/ic_baseline_sports_soccer_24.xml" value="0.1" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/ic_baselinewoman.xml" value="0.1655" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/ic_bx_cart_2.xml" value="0.1655" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/ic_facebook.xml" value="0.1655" />
@@ -34,7 +40,9 @@
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/ic_home.xml" value="0.1" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/ic_launcherlogin.xml" value="0.1" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/ic_myprofile.xml" value="0.1655" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/ic_security.xml" value="0.2225" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/ic_shopping_cart.xml" value="0.1655" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/drawable/scroller_style.xml" value="0.1345" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/font/font.xml" value="0.18888888888888888" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/activity_cart.xml" value="0.264" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/activity_delivery.xml" value="0.25416666666666665" />
@@ -44,13 +52,22 @@
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/activity_product.xml" value="0.264" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/activity_register.xml" value="0.264" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/activity_welcome.xml" value="0.4" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/fragment_dobongda.xml" value="0.264" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/fragment_dotapgym.xml" value="0.1" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/fragment_dotreem.xml" value="0.128" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/fragment_favorite.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/fragment_history.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/fragment_home.xml" value="0.264" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/fragment_lichsumuahang.xml" value="0.264" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/fragment_map.xml" value="0.176" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/item_cart.xml" value="0.4" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/item_listcategory.xml" value="0.264" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/item_listhome.xml" value="0.2" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/item_order.xml" value="0.264" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/item_productorder.xml" value="0.176" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/layout_header.xml" value="0.4" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/layout_mail.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/layout/layout_otp.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/menu/menu_cart.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/desom/AndroidStudioProjects/CK/app/src/main/res/menu/menu_nav.xml" value="0.25416666666666665" />
       </map>

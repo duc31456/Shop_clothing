@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">SHOP SPORTER</string>
     <string name="nav_home">Home</string>
-    <string name="nav_donam">Đồ thể thao nam</string>
-    <string name="nav_donu">Đồ thể thao nữ</string>
-    <string name="nav_dodoi">Đồ đôi</string>
-    <string name="nav_gopy">Góp ý</string>
+    <string name="nav_dobongda">Đồ bóng đá</string>
+    <string name="nav_dotapgym">Đồ tập gym</string>
+    <string name="nav_dotreem">Đồ trẻ em</string>
+    <string name="nav_lichsumuahang">Lịch sử mua hàng</string>
     <string name="nav_map">Địa chỉ shop</string>
     <string name="nav_account">Acount</string>
     <string name="nav_myprofile">Đăng nhập</string>

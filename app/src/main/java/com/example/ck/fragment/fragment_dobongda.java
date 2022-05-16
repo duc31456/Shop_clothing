@@ -1,12 +1,10 @@
 package com.example.ck.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
@@ -15,57 +13,49 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.ck.MainActivity;
 import com.example.ck.R;
+import com.example.ck.adapter.doBongDa_adapter;
 import com.example.ck.adapter.home_adapter;
 import com.example.ck.item_class.productModel.class_product;
-import com.example.ck.login_activity;
 import com.example.ck.request_api.CallApiUser;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class fragment_home extends Fragment {
-    private RecyclerView recyclerView;
-    private home_adapter adapter;
-    ViewFlipper flipper;
+public class fragment_dobongda extends Fragment {
+    private RecyclerView recycler_bongda;
+    private doBongDa_adapter adapter;
 
-    ArrayList<class_product> products = new ArrayList<>();
+    ArrayList<class_product> products_dobongda;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        flipper = view.findViewById(R.id.view_flipper);
+        View view = inflater.inflate(R.layout.fragment_dobongda, container, false);
 
-        flipper.setFlipInterval(3000);
-        flipper.setAutoStart(true);
+        recycler_bongda = view.findViewById(R.id.recycle_bongda);
+        adapter = new doBongDa_adapter(this);
 
-        recyclerView = view.findViewById(R.id.recyclerView);
-        adapter = new home_adapter(this);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
+        recycler_bongda.setLayoutManager(gridLayoutManager);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
-        recyclerView.setLayoutManager(gridLayoutManager);
-
-        CallApiProduct();
-
+        CallApiProductDoBongDa();
         return view;
     }
 
-
-    private void CallApiProduct()
+    public void CallApiProductDoBongDa()
     {
-        CallApiUser.callApi.getApiProduct().enqueue(new Callback<ArrayList<class_product>>() {
+        CallApiUser.callApi.getApiProductDoBongDa().enqueue(new Callback<ArrayList<class_product>>() {
             @Override
             public void onResponse(Call<ArrayList<class_product>> call, Response<ArrayList<class_product>> response) {
                 if (response.isSuccessful())
                 {
-                    products = response.body();
-                    adapter.setdata(products);
-                    recyclerView.setAdapter(adapter);
+                    products_dobongda = new ArrayList<>();
+                    products_dobongda = response.body();
+                    adapter.setdata(products_dobongda);
+                    recycler_bongda.setAdapter(adapter);
                 }
             }
             @Override

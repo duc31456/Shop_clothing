@@ -2,71 +2,62 @@ package com.example.ck.adapter;
 
 import android.content.Intent;
 import android.graphics.Paint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.ck.MainActivity;
 import com.example.ck.R;
-import com.example.ck.fragment.fragment_home;
+import com.example.ck.fragment.fragment_dobongda;
+import com.example.ck.fragment.fragment_dotapgym;
 import com.example.ck.item_class.productModel.class_product;
-import com.example.ck.login_activity;
 import com.example.ck.product_activity;
 import com.example.ck.request_api.CallApiUser;
 
 import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+public class doTapGym_adapter extends RecyclerView.Adapter<doTapGym_adapter.tapgym_viewHolder> {
+    private fragment_dotapgym context;
+    private ArrayList<class_product> dotapgym;
 
-public class home_adapter extends RecyclerView.Adapter<home_adapter.home_viewHolder> {
-    private fragment_home context;
-    private ArrayList<class_product> homes;
-
-    public home_adapter(fragment_home context) {
+    public doTapGym_adapter(fragment_dotapgym context) {
         this.context = context;
     }
 
-    public void setdata(ArrayList<class_product> listhome) {
-        this.homes = listhome;
+    public void setdata(ArrayList<class_product> list)
+    {
+        this.dotapgym = list;
         notifyDataSetChanged();
     }
-
     @NonNull
     @Override
-    public home_viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_listhome, parent, false);
-        return new home_viewHolder(view);
+    public tapgym_viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_listcategory, parent, false);
+        return new tapgym_viewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull home_viewHolder holder, int position) {
-        class_product list = homes.get(position);
-        if (list == null) {
+    public void onBindViewHolder(@NonNull tapgym_viewHolder holder, int position) {
+        class_product list = dotapgym.get(position);
+        if(list == null)
+        {
             return;
 
-        } else {
+        }
+        else {
             // thêm gạch cho giá ban đầu chưa khuyến mãi
             holder.giabandau.setPaintFlags(holder.giabandau.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             holder.mota.setText(list.getName());
-            String url = "http://" + CallApiUser.LOCALHOST + ":3000/api/v1/products/" + list.getId().trim() + "/image";
-            if (!url.isEmpty()) {
-                Glide.with(context).load(url).into(holder.hinh);
-            } else {
-                Log.d("AAA", "Không thể load ảnh!");
-            }
+            String url = "http://"+ CallApiUser.LOCALHOST+":3000/api/v1/products/"+list.getId()+"/image";
+            Glide.with(context).load(url).into(holder.hinh);
             holder.giabandau.setText(String.valueOf(list.getPrice()));
-            holder.giaban.setText(String.valueOf(list.getPrice() - (list.getDiscount() * 100)));
-            holder.giamgia.setText("-" + list.getDiscount() + "%");
+            holder.giaban.setText(String.valueOf(list.getPrice()-(list.getDiscount()*100)));
+            holder.giamgia.setText("-"+list.getDiscount()+"%");
             holder.hinh.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -80,14 +71,15 @@ public class home_adapter extends RecyclerView.Adapter<home_adapter.home_viewHol
 
     @Override
     public int getItemCount() {
-        return homes.size();
+        return dotapgym.size();
     }
 
-    public class home_viewHolder extends RecyclerView.ViewHolder {
+    public class tapgym_viewHolder extends RecyclerView.ViewHolder
+    {
         private ImageView hinh;
         private TextView mota, giaban, giabandau, giamgia;
 
-        public home_viewHolder(@NonNull View itemView) {
+        public tapgym_viewHolder(@NonNull View itemView) {
             super(itemView);
 
             hinh = itemView.findViewById(R.id.image_home);
@@ -97,5 +89,4 @@ public class home_adapter extends RecyclerView.Adapter<home_adapter.home_viewHol
             giamgia = itemView.findViewById(R.id.discount);
         }
     }
-
 }

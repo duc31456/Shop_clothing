@@ -1,6 +1,5 @@
 package com.example.ck;
 
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,53 +11,33 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.ck.fragment.fragment_donam;
-import com.example.ck.fragment.fragment_donu;
+import com.example.ck.fragment.fragment_dobongda;
+import com.example.ck.fragment.fragment_dotapgym;
+import com.example.ck.fragment.fragment_dotreem;
 import com.example.ck.fragment.fragment_home;
+import com.example.ck.fragment.fragment_lichsumuahang;
 import com.example.ck.fragment.fragment_map;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
+import com.example.ck.request_api.CallApiUser;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import com.google.firebase.FirebaseApp;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -69,12 +48,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     GoogleSignInAccount account;
 
     // load thông tin profile fb
-    public static String firstname = "",email = "", image = "", profile ="";
+    public static String firstname = "",email = "", image = "", idfb ="";
 
     private static final int NAV_HOME = 0;
-    private static final int NAV_DONU = 1;
-    private static final int NAV_DONAM = 2;
-    private static final int NAV_MAP = 3;
+    private static final int NAV_DOBONGDA = 1;
+    private static final int NAV_DOTAPGYM = 2;
+    private static final int NAV_DOTREEM= 3;
+    private static final int NAV_LICHSUMUAHANG = 4;
+    private static final int NAV_MAP = 5;
     TextView tenkhachhang;
     CircleImageView imagekhachhang;
 
@@ -89,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Toolbar toolbar = findViewById(R.id.toobar);
         setSupportActionBar(toolbar);
+        FirebaseApp.initializeApp(this);
 
         drawerLayout = findViewById(R.id.drawerLayout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(MainActivity.this,
@@ -107,17 +89,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         replace_fragment(new fragment_home());
         //check clickable item home trong navigation
         navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
-
         call_googleApi();
-        //nếu đăng nhập fb
-        if (!email.isEmpty() && !firstname.isEmpty() && !image.isEmpty()) {
-           // Toast.makeText(this, email + firstname, Toast.LENGTH_SHORT).show();
+        //đăng nhập thành công
+        if (!firstname.isEmpty()) {
             change_visible();
             tenkhachhang.setText("Xin chào, "+firstname);
+            String url = "http://"+ CallApiUser.LOCALHOST +":3000/api/v1/products/"+
+                    product_activity.iduser+"/image";
+            if (!url.isEmpty()) {
+                Glide.with(navigationView).load(url).into(imagekhachhang);
+            } else {
+                Log.d("AAA","Không thể load ảnh!");
+            }
             try{
-                Glide.with(navigationView).load(profile).into(imagekhachhang);
+                Glide.with(navigationView).load(image).into(imagekhachhang);
             } catch (Exception e) {
-                e.printStackTrace();
+             //   e.printStackTrace();
             }
         }
     }
@@ -138,13 +125,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     private void change_visible()
     {
-        MenuItem item_thongtin =  navigationView.getMenu().findItem(R.id.nav_thongtintaikhoan);
         MenuItem item_dangnhap =  navigationView.getMenu().findItem(R.id.nav_dangnhap);
         MenuItem item_dangxuat =  navigationView.getMenu().findItem(R.id.nav_dangxuat);
+        MenuItem item_lichsumuahang =  navigationView.getMenu().findItem(R.id.nav_lichsumuahang);
 
         item_dangnhap.setVisible(false);
         item_dangxuat.setVisible(true);
-        item_thongtin.setVisible(true);
+        item_lichsumuahang.setVisible(true);
     }
     // đăng xuất google
     private void signOutGoogle() {
@@ -179,22 +166,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 current_fragment = NAV_HOME;
             }
         }
-        else if(id == R.id.nav_donam)
+        else if(id == R.id.nav_dobongda)
         {
-            if(current_fragment != NAV_DONAM)
+            if(current_fragment != NAV_DOBONGDA)
             {
-                replace_fragment(new fragment_donam());
-                current_fragment = NAV_DONAM;
+                replace_fragment(new fragment_dobongda());
+                current_fragment = NAV_DOBONGDA;
             }
         }
-        else if(id == R.id.nav_donu)
+        else if(id == R.id.nav_dotapgym)
         {
-            if(current_fragment != NAV_DONU)
+            if(current_fragment != NAV_DOTAPGYM)
             {
-                replace_fragment(new fragment_donu());
-                current_fragment = NAV_DONU;
+                replace_fragment(new fragment_dotapgym());
+                current_fragment = NAV_DOTAPGYM;
             }
         }
+        else if(id == R.id.nav_dotreem)
+        {
+            if(current_fragment != NAV_DOTREEM)
+            {
+                replace_fragment(new fragment_dotreem());
+                current_fragment = NAV_DOTREEM;
+            }
+        }else if(id == R.id.nav_lichsumuahang)
+        {
+            if(current_fragment != NAV_LICHSUMUAHANG)
+            {
+                replace_fragment(new fragment_lichsumuahang());
+                current_fragment = NAV_LICHSUMUAHANG;
+            }
+        }
+
         else if(id == R.id.nav_map)
         {
             if(current_fragment != NAV_MAP)
@@ -204,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 current_fragment = NAV_MAP;
             }
         }
-        else if(id == R.id.nav_dodoi){
+        else if(id == R.id.nav_dotreem){
 
         }else if(id == R.id.nav_dangnhap)
         {
@@ -217,17 +220,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             {
                 signOutGoogle();
             }
-            if(!email.isEmpty() && !firstname.isEmpty() && !image.isEmpty())
+            if(!email.isEmpty() && !firstname.isEmpty() && !idfb.isEmpty())
             {
                 signOutFacebook();
-                image = "";
-                firstname ="";
-                email ="";
-                imagekhachhang.setImageResource(R.drawable.programmer);
             }
-        }else if(id == R.id.nav_thongtintaikhoan)
-        {
-           // signOut();
+            firstname ="";
+            image = "";
+            email ="";
+            imagekhachhang.setImageResource(R.drawable.programmer);
         }
 
         //đóng navigation view lại

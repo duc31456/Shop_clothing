@@ -1,16 +1,18 @@
 package com.example.ck.item_class.userModel;
 
+import com.google.gson.annotations.SerializedName;
+
 public class class_account {
     private String username;
     private String password;
     private String role;
     private String created_at;
 
-    public class_account(String username, String password, String role, String created_at) {
+
+
+    public class_account(String username, String password) {
         this.username = username;
         this.password = password;
-        this.role = role;
-        this.created_at = created_at;
     }
 
     public String getUsername() {

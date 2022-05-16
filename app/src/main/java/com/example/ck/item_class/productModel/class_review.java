@@ -6,11 +6,10 @@ public class class_review {
     private String feedback;
     private String created_at;
 
-    public class_review(String id_user, String rate, String feedback, String created_at) {
+    public class_review(String id_user, String rate, String feedback) {
         this.id_user = id_user;
         this.rate = rate;
         this.feedback = feedback;
-        this.created_at = created_at;
     }
 
     public String getId_user() {

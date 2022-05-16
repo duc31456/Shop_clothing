@@ -3,12 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/app_bar_search"
-        android:icon="@android:drawable/ic_menu_search"
-        android:title="Search"
-        app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="always" />
-    <item
         android:id="@+id/item_cart"
         android:icon="@drawable/ic_shopping_cart"
         android:title="cart"

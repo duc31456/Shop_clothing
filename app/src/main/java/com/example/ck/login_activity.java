@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ck.fragment.fragment_lichsumuahang;
 import com.example.ck.item_class.userModel.class_user;
 import com.example.ck.request_api.CallApiUser;
 import com.facebook.AccessToken;
@@ -37,10 +38,12 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -73,6 +76,7 @@ public class login_activity extends AppCompatActivity implements GoogleApiClient
         callbackManager = CallbackManager.Factory.create();
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
+        FirebaseApp.initializeApp(this);
 
         btnregister = findViewById(R.id.btnregister);
         btnlogin = findViewById(R.id.btnlogin);
@@ -125,8 +129,8 @@ public class login_activity extends AppCompatActivity implements GoogleApiClient
                         try {
                             MainActivity.firstname = object.getString("first_name");
                             MainActivity.email = object.getString("email");
-                            MainActivity.image = object.getString("id");
-                            MainActivity.profile= response.getJSONObject().getJSONObject("picture").getJSONObject("data").getString("url");
+                            MainActivity.idfb = object.getString("id");
+                            MainActivity.image= response.getJSONObject().getJSONObject("picture").getJSONObject("data").getString("url");
                             intent = new Intent(login_activity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
@@ -160,38 +164,41 @@ public class login_activity extends AppCompatActivity implements GoogleApiClient
                 requestEmail().build();
         googleSignInClient = GoogleSignIn.getClient(this, gso);
     }
+    //đăng nhập
     public void callApiUser() {
-        CallApiUser.callApi.get_ApiUser().enqueue(new Callback<List<class_user>>() {
+        CallApiUser.callApi.get_ApiUser().enqueue(new Callback<ArrayList<class_user>>() {
             @Override
-            public void onResponse(Call<List<class_user>> call, Response<List<class_user>> response) {
-                List<class_user> users = response.body();
-                if (response != null) {
-                   if(!username.getText().toString().isEmpty() || !password.getText().toString().isEmpty())
-                   {
-                       for (int i = 0; i < users.size(); i++)
-                       {
-                           if (username.getText().toString().contains(users.get(i).getAccount().getUsername())
-                           && password.getText().toString().contains(users.get(i).getAccount().getPassword()))
-                           {
-                               Toast.makeText(login_activity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
-
-                               Intent intent = new Intent(login_activity.this, MainActivity.class);
-                               startActivity(intent);
-                               return;
-                           }
-                       }
-                       Toast.makeText(login_activity.this, "sai tài khoản hoặc mật khẩu!", Toast.LENGTH_SHORT).show();
-                   }
-                   else
-                   {
-                       Toast.makeText(login_activity.this, "Vui lòng nhập đầy đủ!", Toast.LENGTH_SHORT).show();
-                   }
+            public void onResponse(Call<ArrayList<class_user>> call, Response<ArrayList<class_user>> response) {
+                ArrayList<class_user> users = response.body();
+                if(response.isSuccessful() && users != null)
+                {
+                  //  Log.d("AAA", users.get(0).getAccount().getUsername());
+                        if(!username.getText().toString().isEmpty() && !password.getText().toString().isEmpty())
+                        {
+                            for(int i = 0; i < users.size(); i++)
+                            {
+                                if(users.get(i).getAccount().getUsername().equals(username.getText().toString().trim()) ||
+                                    users.get(i).getAccount().getPassword().equals(password.getText().toString().trim()))
+                                {
+                                    MainActivity.firstname = username.getText().toString();
+                                    product_activity.iduser = users.get(i).getId().trim();
+                                    Toast.makeText(login_activity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(login_activity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    return;
+                                }
+                                else
+                                {
+                                    Toast.makeText(login_activity.this, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
                 }
             }
 
             @Override
-            public void onFailure(Call<List<class_user>> call, Throwable t) {
-               // Toast.makeText(login_activity.this, "" + t, Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<ArrayList<class_user>> call, Throwable t) {
+                Log.d("ERROR", t.toString());
             }
         });
     }

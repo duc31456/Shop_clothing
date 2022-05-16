@@ -1,26 +1,40 @@
 package com.example.ck.item_class.userModel;
 
 import com.example.ck.item_class.userModel.class_account;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
 
 public class class_user {
-    private String id;
-    private String name;
-    private String phone;
-    private String gender;
-    private String age;
-    private String address;
-    private String link_avt;
-    private class_account account;
+    public String id;
+    public String name;
+    public String phone;
+    public String email;
+    public String gender;
+    public String age;
+    public String address;
+    public String link_avt;
+    public class_account account;
+    public ArrayList<class_cart> cart;
+    public ArrayList<class_order> orders;
 
-    public class_user(String id, String name, String phone, String gender, String age, String address, String link_avt, class_account account) {
-        this.id = id;
+    public class_user(String name, String phone,String email,class_account account, ArrayList<class_cart> cart) {
         this.name = name;
         this.phone = phone;
-        this.gender = gender;
-        this.age = age;
-        this.address = address;
-        this.link_avt = link_avt;
+        this.email = email;
         this.account = account;
+        this.cart = cart;
+    }
+
+    public class_user() {
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getId() {
@@ -87,17 +101,27 @@ public class class_user {
         this.account = account;
     }
 
+    public ArrayList<class_cart> getCart() {
+        return cart;
+    }
+
+    public void setCart(ArrayList<class_cart> cart) {
+        this.cart = cart;
+    }
+
     @Override
     public String toString() {
         return "class_user{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
                 ", gender='" + gender + '\'' +
                 ", age='" + age + '\'' +
                 ", address='" + address + '\'' +
                 ", link_avt='" + link_avt + '\'' +
                 ", account=" + account +
+                ", cart=" + cart +
                 '}';
     }
 }

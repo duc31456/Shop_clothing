@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:979398199118:android:cc1c7dad58890146d7801f",
         "android_client_info": {
-          "package_name": "com.example.firebase"
+          "package_name": "com.example.ck"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "979398199118-spt7bb4sk23bcdjgq7egd3ie9bdpb0fi.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.firebase",
+            "package_name": "com.example.ck",
             "certificate_hash": "556da885fec43fc30c1e3b9e9b39410e8daacb82"
           }
         },

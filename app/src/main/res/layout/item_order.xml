@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:orientation="vertical">
+
+    <com.ramotion.foldingcell.FoldingCell
+        android:id="@+id/folding_cell"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/cell_content_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFF8DC"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center|top"
+                android:text="THÔNG TIN ĐẶT HÀNG"
+                android:textSize="25sp"
+                android:textColor="#EDD6D6"
+                android:background="@color/purple_500"/>
+            <TextView
+                android:id="@+id/nguoidat"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:gravity="left"
+                android:text="Người đặt: "
+                android:textSize="20sp"
+                android:layout_marginTop="45dp"
+                android:textColor="@color/black"
+                style="@style/mota_sanpham"/>
+
+            <TextView
+                android:id="@+id/sdt"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="left"
+                android:text="Số điện thoại: "
+                android:textSize="20sp"
+                android:layout_marginTop="75dp"
+                android:textColor="@color/black"
+                style="@style/mota_sanpham"/>
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="left"
+                android:text="Email: "
+                android:textSize="20sp"
+                android:layout_marginTop="105dp"
+                android:textColor="@color/black"
+                style="@style/mota_sanpham"/>
+
+            <TextView
+                android:id="@+id/diachi"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="left"
+                android:text="Địa chỉ: "
+                android:textSize="20sp"
+                android:layout_marginTop="135dp"
+                android:textColor="@color/black"
+                style="@style/mota_sanpham"/>
+            <TextView
+                android:id="@+id/thongtinsanpham"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Thông tin sản phẩm đã mua: "
+                android:textSize="20sp"
+                android:layout_marginTop="165dp"
+                android:textColor="@color/black"
+                style="@style/mota_sanpham"/>
+
+            <TextView
+                android:id="@+id/btnxem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="315dp"
+                android:background="@color/white"
+                android:text="Đánh giá"
+                android:textColor="#2E7D32"
+                android:textSize="25sp" />
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:background="#c0c0c0"
+                android:layout_marginTop="300dp"/>
+
+            <RatingBar
+                android:id="@+id/rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="350dp"
+                android:contentDescription="đánh giá"
+                android:numStars="5"
+                android:rating="5"
+                android:layout_marginLeft="80dp"
+                android:stepSize="1" />
+
+            <EditText
+                android:id="@+id/nhapdanhgia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="410dp"
+                android:hint="Nhập đánh giá của bạn vào đây: "
+                android:minHeight="48dp" />
+            <Button
+                android:id="@+id/guidanhgia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Gửi"
+                android:layout_marginTop="500dp"
+                android:background="#FDD835"/>
+
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/cell_title_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#D3D3D3">
+
+            <TextView
+                android:id="@+id/thongso"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:background="@color/purple_500"
+                android:gravity="center"
+                android:text="ĐƠN HÀNG"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tonggia"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="20sp"
+                android:gravity="center"
+                android:text="Tổng: "
+                android:textColor="#CF2323"
+                android:textSize="22sp" />
+
+
+            <TextView
+                android:id="@+id/trangthai"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="70dp"
+                android:gravity="center"
+                android:text="Trạng thái: "
+                android:textColor="#1E88E5"
+                android:textSize="18sp" />
+
+        </FrameLayout>
+    </com.ramotion.foldingcell.FoldingCell>
+
+
+</LinearLayout>

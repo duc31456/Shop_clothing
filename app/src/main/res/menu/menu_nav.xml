@@ -5,18 +5,19 @@
         <item android:id="@+id/nav_home"
             android:title="@string/nav_home"
             android:icon="@drawable/ic_home"/>
-        <item android:id="@+id/nav_donam"
-            android:title="@string/nav_donam"
-            android:icon="@drawable/ic_baseline_sports_handball"/>
-        <item android:id="@+id/nav_donu"
-            android:title="@string/nav_donu"
-            android:icon="@drawable/ic_baselinewoman"/>
-        <item android:id="@+id/nav_dodoi"
-            android:title="@string/nav_dodoi"
+        <item android:id="@+id/nav_dobongda"
+            android:title="@string/nav_dobongda"
+            android:icon="@drawable/ic_baseline_sports_soccer_24"/>
+        <item android:id="@+id/nav_dotapgym"
+            android:title="@string/nav_dotapgym"
             android:icon="@drawable/ic_baseline_sports"/>
-        <item android:id="@+id/nav_gopy"
-            android:title="@string/nav_gopy"
-            android:icon="@drawable/ic_baseline_email"/>
+        <item android:id="@+id/nav_dotreem"
+            android:title="@string/nav_dotreem"
+            android:icon="@drawable/ic_kid"/>
+        <item android:id="@+id/nav_lichsumuahang"
+            android:title="@string/nav_lichsumuahang"
+            android:icon="@drawable/ic_baseline_history_24"
+            android:visible="false"/>
         <item android:id="@+id/nav_map"
             android:title="@string/nav_map"
             android:icon="@drawable/ic_baseline_map_24"/>
@@ -28,12 +29,6 @@
         <item android:id="@+id/nav_dangnhap"
             android:title="@string/nav_myprofile"
             android:icon="@drawable/ic_baseline_login"/>
-        <item
-            android:id="@+id/nav_thongtintaikhoan"
-            android:icon="@drawable/ic_launcherlogin"
-            android:title="@string/naw_thongtintaikhoan"
-            android:visible="false"
-            app:showAsAction="always" />
         <item
             android:id="@+id/nav_dangxuat"
             android:icon="@drawable/ic_baseline_logout_24"

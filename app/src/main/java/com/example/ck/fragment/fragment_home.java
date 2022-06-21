@@ -66,6 +66,7 @@ public class fragment_home extends Fragment {
                     products = response.body();
                     adapter.setdata(products);
                     recyclerView.setAdapter(adapter);
+                   // Log.d("ERRORLOGIN", products.toString());
                 }
             }
             @Override

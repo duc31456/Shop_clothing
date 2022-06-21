@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".register_activity"
-    android:background="@drawable/backgroud_login">
+    android:background="#28A6E3">
 
     <TextView
         style="@style/dang_ky"
@@ -16,7 +16,7 @@
         android:gravity="center"
         android:text="Đăng ký"
         android:textColor="#FDD835"
-        android:textSize="30sp"
+        android:textSize="35sp"
         android:textStyle="bold" />
 
     <de.hdodenhof.circleimageview.CircleImageView

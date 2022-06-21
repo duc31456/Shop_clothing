@@ -17,7 +17,7 @@
             android:id="@+id/cell_content_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFF8DC"
+            android:background="#C5AD75"
             android:visibility="gone">
             <TextView
                 android:layout_width="match_parent"
@@ -80,50 +80,6 @@
                 android:layout_marginTop="165dp"
                 android:textColor="@color/black"
                 style="@style/mota_sanpham"/>
-
-            <TextView
-                android:id="@+id/btnxem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="150dp"
-                android:layout_marginTop="315dp"
-                android:background="@color/white"
-                android:text="Đánh giá"
-                android:textColor="#2E7D32"
-                android:textSize="25sp" />
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="2dp"
-                android:background="#c0c0c0"
-                android:layout_marginTop="300dp"/>
-
-            <RatingBar
-                android:id="@+id/rating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="350dp"
-                android:contentDescription="đánh giá"
-                android:numStars="5"
-                android:rating="5"
-                android:layout_marginLeft="80dp"
-                android:stepSize="1" />
-
-            <EditText
-                android:id="@+id/nhapdanhgia"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="410dp"
-                android:hint="Nhập đánh giá của bạn vào đây: "
-                android:minHeight="48dp" />
-            <Button
-                android:id="@+id/guidanhgia"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Gửi"
-                android:layout_marginTop="500dp"
-                android:background="#FDD835"/>
-
-
         </FrameLayout>
 
         <FrameLayout

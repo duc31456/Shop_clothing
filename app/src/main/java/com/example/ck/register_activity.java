@@ -12,6 +12,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -41,6 +43,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -53,6 +56,7 @@ public class register_activity extends AppCompatActivity {
     Dialog dialog;
     FirebaseAuth mAuth;
     String verifyId;
+    String invalid_phone = "+84";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +72,30 @@ public class register_activity extends AppCompatActivity {
         input_password = findViewById(R.id.input_password);
         input_confirmpass = findViewById(R.id.input_confirmpass);
         btndangky = findViewById(R.id.btndangky);
+        btndangky.setEnabled(false);
         mAuth = FirebaseAuth.getInstance();
+        input_email.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(isValidEmailId(input_email.getText().toString().trim())){
+                    Toast.makeText(getApplicationContext(), "Địa chỉ email hợp lệ!", Toast.LENGTH_SHORT).show();
+                    btndangky.setEnabled(true);
+                }else{
+                 //   Toast.makeText(getApplicationContext(), "Địa chỉ email không hợp lệ!", Toast.LENGTH_SHORT).show();
+                    btndangky.setEnabled(false);
+                }
+            }
+        });
         btndangky.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,28 +110,38 @@ public class register_activity extends AppCompatActivity {
                             "Vui lòng nhập đầy đủ!", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    if (input_password.getText().toString().equals(input_confirmpass.getText().toString()))
-                    {
-                        if(input_phone.getText().toString().length() < 10){
-                            input_phone.setError("Enter a valid mobile");
-                            input_phone.requestFocus();
-                            return;
+                        if (input_password.getText().toString().equals(input_confirmpass.getText().toString()))
+                        {
+                            String temp = invalid_phone.concat(input_phone.getText().toString());
+                            if(temp.length() < 10){
+                                input_phone.setError("Enter a valid mobile");
+                                input_phone.requestFocus();
+                                return;
+                            }
+                            else {
+                                Toast.makeText(register_activity.this, "Nhập OTP xác nhận sdt!", Toast.LENGTH_SHORT).show();
+                                sendVerificationCode(temp);
+                            }
                         }
-                        else {
-                            Toast.makeText(register_activity.this, "Nhập OTP xác nhận sdt!", Toast.LENGTH_SHORT).show();
-                            sendVerificationCode(input_phone.getText().toString());
+                        else
+                        {
+                            Toast.makeText(register_activity.this,
+                                    "Mật khẩu xác nhận sai!", Toast.LENGTH_SHORT).show();
                         }
-                    }
-                    else
-                    {
-                        Toast.makeText(register_activity.this,
-                                "Mật khẩu xác nhận sai!", Toast.LENGTH_SHORT).show();
-                    }
+
                 }
             }
         });
     }
+    private boolean isValidEmailId(String email){
 
+        return Pattern.compile("^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
+                + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
+                + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
+                + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$").matcher(email).matches();
+    }
     public void dialog_nhapotp()
     {
         dialog = new Dialog(register_activity.this);
@@ -184,7 +221,7 @@ public class register_activity extends AppCompatActivity {
                input_phone.getText().toString(),
                input_password.getText().toString(),
                input_confirmpass.getText().toString(),
-               input_fullname.getText().toString()).enqueue(new Callback<class_user>() {
+               input_fullname.getText().toString(), "user").enqueue(new Callback<class_user>() {
             @Override
            public void onResponse(Call<class_user> call, Response<class_user> response) {
                 if (response.isSuccessful())

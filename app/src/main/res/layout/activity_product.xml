@@ -2,11 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#7CB342"
-    tools:context=".product_activity"
-    android:id="@+id/background">
+    tools:context=".product_activity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -107,8 +107,8 @@
             android:id="@+id/addtocart"
             android:layout_width="350dp"
             android:layout_height="70dp"
-            android:scaleType="centerCrop"
             android:layout_marginRight="10dp"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView6"
             app:layout_constraintHorizontal_bias="0.2"
@@ -146,35 +146,37 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="215dp"
+        android:layout_width="250dp"
         android:layout_height="300dp"
-        android:scaleType="center"
+        android:scaleType="centerCrop"
+
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/ao_den" />
+        app:srcCompat="@drawable/ao_nu" />
 
     <ImageView
         android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_width="33dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back" />
 
     <ImageView
-        android:id="@+id/image_cart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/freeback"
+        android:layout_width="47dp"
+        android:layout_height="36dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.993"
         app:layout_constraintStart_toEndOf="@+id/btn_back"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_bx_cart_2" />
+        app:srcCompat="@drawable/ic_baseline_rate_review_24" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

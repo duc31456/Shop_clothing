@@ -11,14 +11,16 @@ public class cart_item implements Serializable {
     private Integer quantity;
     private String size;
     private Integer price;
+    private String link_image;
 
 
-    public cart_item(String id, String name, Integer quantity, String size, Integer price) {
+    public cart_item(String id, String name, Integer quantity, String size, Integer price, String link_image) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.size = size;
         this.price = price;
+        this.link_image = link_image;
     }
 
     @Override
@@ -30,6 +32,14 @@ public class cart_item implements Serializable {
                 ", size='" + size + '\'' +
                 ", price='" + price + '\'' +
                 '}';
+    }
+
+    public String getLink_image() {
+        return link_image;
+    }
+
+    public void setLink_image(String link_image) {
+        this.link_image = link_image;
     }
 
     public String getId() {

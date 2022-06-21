@@ -1,30 +1,31 @@
 package com.example.ck.item_class.productModel;
 
 public class class_review {
-    private String id_user;
-    private String rate;
+    private String username;
+    private Integer rate;
     private String feedback;
     private String created_at;
 
-    public class_review(String id_user, String rate, String feedback) {
-        this.id_user = id_user;
+    public class_review(String username, Integer rate, String feedback, String created_at) {
+        this.username = username;
         this.rate = rate;
         this.feedback = feedback;
+        this.created_at = created_at;
     }
 
-    public String getId_user() {
-        return id_user;
+    public String getUsername() {
+        return username;
     }
 
-    public void setId_user(String id_user) {
-        this.id_user = id_user;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getRate() {
+    public Integer getRate() {
         return rate;
     }
 
-    public void setRate(String rate) {
+    public void setRate(Integer rate) {
         this.rate = rate;
     }
 
@@ -47,8 +48,8 @@ public class class_review {
     @Override
     public String toString() {
         return "class_review{" +
-                "id_user='" + id_user + '\'' +
-                ", rate='" + rate + '\'' +
+                "username='" + username + '\'' +
+                ", rate=" + rate +
                 ", feedback='" + feedback + '\'' +
                 ", created_at='" + created_at + '\'' +
                 '}';

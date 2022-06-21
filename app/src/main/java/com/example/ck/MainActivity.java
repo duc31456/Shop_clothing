@@ -11,7 +11,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,11 +47,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-    GoogleSignInClient googleSignInClient;
-    GoogleSignInAccount account;
-
     // load thông tin profile fb
-    public static String firstname = "",email = "", image = "", idfb ="";
+    public static String firstname = "",email = "", image = "";
 
     private static final int NAV_HOME = 0;
     private static final int NAV_DOBONGDA = 1;
@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Toolbar toolbar = findViewById(R.id.toobar);
         setSupportActionBar(toolbar);
-        FirebaseApp.initializeApp(this);
 
         drawerLayout = findViewById(R.id.drawerLayout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(MainActivity.this,
@@ -89,40 +88,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         replace_fragment(new fragment_home());
         //check clickable item home trong navigation
         navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
-        call_googleApi();
         //đăng nhập thành công
         if (!firstname.isEmpty()) {
             change_visible();
             tenkhachhang.setText("Xin chào, "+firstname);
-            String url = "http://"+ CallApiUser.LOCALHOST +":3000/api/v1/products/"+
-                    product_activity.iduser+"/image";
-            if (!url.isEmpty()) {
-                Glide.with(navigationView).load(url).into(imagekhachhang);
-            } else {
-                Log.d("AAA","Không thể load ảnh!");
-            }
-            try{
-                Glide.with(navigationView).load(image).into(imagekhachhang);
-            } catch (Exception e) {
-             //   e.printStackTrace();
+            //Toast.makeText(this, ""+image, Toast.LENGTH_SHORT).show();
+            if (image.isEmpty())
+            {
+                imagekhachhang.setImageResource(R.drawable.programmer);
+            }else {
+                try {
+                    byte[] decodedString = Base64.decode(image.substring(22), Base64.DEFAULT);
+                   // Glide.with(navigationView).load(decodedString).into(imagekhachhang);
+                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                    
+                    imagekhachhang.setImageBitmap(decodedByte);
+                }catch (Exception e)
+                {
+                   // Log.d("ERRORLOGIN", e+"");
+                }
             }
         }
     }
-    // hàm gọi api google lấy image và tên người đăng nhập google
-    public void call_googleApi()
-    {
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        //nếu đã đăng nhập thì hiện đăng xuất và thông tin tài khoản
-        googleSignInClient = GoogleSignIn.getClient(this, gso);
-        account = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
-        if (account != null) {
-            change_visible();
-            tenkhachhang.setText("Xin chào, "+account.getDisplayName());
-            Glide.with(navigationView).load(account.getPhotoUrl()).into(imagekhachhang);
-        }
-    }
+
     private void change_visible()
     {
         MenuItem item_dangnhap =  navigationView.getMenu().findItem(R.id.nav_dangnhap);
@@ -133,28 +121,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         item_dangxuat.setVisible(true);
         item_lichsumuahang.setVisible(true);
     }
-    // đăng xuất google
-    private void signOutGoogle() {
-        googleSignInClient.signOut()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                      Intent intent = new Intent(MainActivity.this, login_activity.class);
-                      startActivity(intent);
-                        Toast.makeText(MainActivity.this, "Đăng xuất mail thành công!", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                });
-    }
 
-    //đăng xuất google
-    private void signOutFacebook()
-    {
-        LoginManager.getInstance().logOut();
-        Intent intent = new Intent(MainActivity.this, login_activity.class);
-        startActivity(intent);
-        Toast.makeText(MainActivity.this, "Đăng xuất facebook thành công!", Toast.LENGTH_SHORT).show();
-    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -216,18 +183,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }else if(id == R.id.nav_dangxuat)
         {
-            if(account != null)
-            {
-                signOutGoogle();
-            }
-            if(!email.isEmpty() && !firstname.isEmpty() && !idfb.isEmpty())
-            {
-                signOutFacebook();
-            }
             firstname ="";
             image = "";
             email ="";
             imagekhachhang.setImageResource(R.drawable.programmer);
+            Intent intent = new Intent(MainActivity.this, login_activity.class);
+            startActivity(intent);
         }
 
         //đóng navigation view lại

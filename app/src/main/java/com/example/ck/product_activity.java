@@ -2,23 +2,36 @@ package com.example.ck;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.ck.adapter.home_adapter;
+import com.example.ck.adapter.review_adapter;
 import com.example.ck.item_class.productModel.class_product;
+import com.example.ck.item_class.productModel.class_review;
 import com.example.ck.item_class.userModel.class_cart;
 import com.example.ck.item_class.userModel.class_user;
 import com.example.ck.request_api.CallApiUser;
@@ -33,10 +46,11 @@ import retrofit2.Response;
 public class product_activity extends AppCompatActivity {
     Spinner spinner_size;
     ArrayList<String> size;
-    ImageView addtocart, image_cart, btn_back;
+    ImageView addtocart, image_freeback, btn_back;
     TextView tensp, gia, mota, soluong;
     ImageView anhsp, tangsoluong, giamsoluong;
     ConstraintLayout background;
+    public review_adapter adapter;
 
     public static String iduser = "1";
 
@@ -44,8 +58,13 @@ public class product_activity extends AppCompatActivity {
 
     ArrayList<class_product> product = new ArrayList<>();
     public static String idProduct = "";
+    public static String userNameReview ="";
 
     private int soluongsp = 1;
+
+    EditText input_review;
+    RatingBar rate_review;
+    public int rate_score;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,9 +73,9 @@ public class product_activity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_product);
 
-        LoadSanPham();
         Anhxa();
-
+        adapter = new review_adapter(this);
+        LoadSanPham();
         addtocart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,12 +88,43 @@ public class product_activity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        image_cart.setOnClickListener(new View.OnClickListener() {
+        image_freeback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(product_activity.this, cart_activity.class);
-                startActivity(intent);
-                finish();
+                Dialog dialog = new Dialog(product_activity.this);
+                dialog.setContentView(R.layout.dialog_freeback);
+                dialog.getWindow().setLayout(1050, 2000);
+                dialog.show();
+
+                input_review = dialog.findViewById(R.id.input_review);
+                rate_review = dialog.findViewById(R.id.rate_review);
+                Button send_review = dialog.findViewById(R.id.send_review);
+
+                RecyclerView recyclerView = dialog.findViewById(R.id.list_review);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getParent(), RecyclerView.VERTICAL, false);
+                recyclerView.setLayoutManager(linearLayoutManager);
+                recyclerView.setAdapter(adapter);
+
+                rate_review.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                    @Override
+                    public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                        rate_score = (int) v;
+                    }
+                });
+                send_review.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(input_review.getText().toString().isEmpty())
+                        {
+                            Toast.makeText(product_activity.this, "Mời bạn đánh giá sản phẩm!", Toast.LENGTH_SHORT).show();
+                        }else {
+                            CallApiInsertReview();
+                            LoadSanPham();
+                            send_review.setEnabled(false);
+                            input_review.setText("");
+                        }
+                    }
+                });
             }
         });
         tangsoluong.setOnClickListener(new View.OnClickListener() {
@@ -102,10 +152,30 @@ public class product_activity extends AppCompatActivity {
         });
     }
 
+
+    public void CallApiInsertReview()
+    {
+        CallApiUser.callApi.updatereview(idProduct, userNameReview,
+                rate_score, input_review.getText().toString().trim()).enqueue(new Callback<class_review>() {
+            @Override
+            public void onResponse(Call<class_review> call, Response<class_review> response) {
+                if (response.isSuccessful())
+                {
+                    Toast.makeText(product_activity.this,
+                            response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<class_review> call, Throwable t) {
+            }
+        });
+    }
+
     private void Anhxa()
     {
         spinner_size = findViewById(R.id.spinner_size);
-        image_cart = findViewById(R.id.image_cart);
+        image_freeback = findViewById(R.id.freeback);
         addtocart = findViewById(R.id.addtocart);
         btn_back = findViewById(R.id.btn_back);
         tensp = findViewById(R.id.textView4);
@@ -142,7 +212,7 @@ public class product_activity extends AppCompatActivity {
         });
 
     }
-    private void LoadSanPham()
+    public void LoadSanPham()
     {
         CallApiUser.callApi.loadSanPham(idProduct).enqueue(new Callback<ArrayList<class_product>>() {
             @Override
@@ -154,13 +224,17 @@ public class product_activity extends AppCompatActivity {
                         tensp.setText(product.get(0).getName());
                         gia.setText(String.valueOf(product.get(0).getPrice()-(product.get(0).getDiscount()*100)) +" VND");
                         mota.setText(product.get(0).getDescription());
-                        String url = "http://"+CallApiUser.LOCALHOST+":3000/api/v1/products/"+product.get(0).getId().trim()+"/image";
-                        if (!url.isEmpty()) {
-                            Glide.with(product_activity.this).load(url).into(anhsp);
-                        } else {
-                            Log.d("AAA","Không thể load ảnh!");
+                        adapter.setdata(product.get(0).getReview());
+                        cart_activity.link_sanpham = product.get(0).getLink_image();
+                        try {
+                            byte[] decodedString = Base64.decode(product.get(0).getLink_image().substring(22), Base64.DEFAULT);
+                            // Glide.with(context).load(decodedString).into(holder.hinh);
+                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                            anhsp.setImageBitmap(decodedByte);
+                        }catch (Exception e)
+                        {
+                            //Log.d("ERRORLOGIN", e+"");
                         }
-                        Log.d("AAA", product.toString());
                     }
             }
 

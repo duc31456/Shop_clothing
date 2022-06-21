@@ -46,4 +46,12 @@ public class class_account {
     public void setCreated_at(String created_at) {
         this.created_at = created_at;
     }
+
+    @Override
+    public String toString() {
+        return "class_account{" +
+                "username='" + username + '\'' +
+                ", role='" + role + '\'' +
+                '}';
+    }
 }

@@ -11,6 +11,7 @@ public class class_order {
     private String recipient_email;
     private String recipient_address;
     private ArrayList<product_order> products;
+    private ArrayList<class_product> product;
     private Integer discount;
     private Integer total_price;
     private String status;
@@ -18,7 +19,7 @@ public class class_order {
     public class_order(String id, String recipient_name, String recipient_phone,
                        String recipient_email, String recipient_address,
                        ArrayList<product_order> products,
-                       Integer discount, Integer total_price, String status) {
+                       Integer discount, Integer total_price, String status,ArrayList<class_product> product) {
         this.id = id;
         this.recipient_name = recipient_name;
         this.recipient_phone = recipient_phone;
@@ -28,6 +29,15 @@ public class class_order {
         this.discount = discount;
         this.total_price = total_price;
         this.status = status;
+        this.product = product;
+    }
+
+    public ArrayList<class_product> getProduct() {
+        return product;
+    }
+
+    public void setProduct(ArrayList<class_product> product) {
+        this.product = product;
     }
 
     public String getId() {

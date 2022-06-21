@@ -1,7 +1,10 @@
 package com.example.ck.adapter;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Paint;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,13 +69,15 @@ public class giohang_adapter extends RecyclerView.Adapter<giohang_adapter.giohan
                     holder.size.setText(list.getSize());
                     holder.ten.setText(list.getName());
                     holder.gia.setText((list.getPrice() * list.getQuantity()) +" VND");
-                    String url = "http://"+CallApiUser.LOCALHOST+":3000/api/v1/products/"+
-                            list.getId().trim()+"/image";
-                    if (!url.isEmpty()) {
-                        Glide.with(context).load(url).into(holder.hinh);
-                    } else {
-                        Log.d("AAA","Không thể load ảnh!");
-                    }
+           try {
+                byte[] decodedString = Base64.decode(list.getLink_image().substring(23), Base64.DEFAULT);
+                // Glide.with(context).load(decodedString).into(holder.hinh);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                holder.hinh.setImageBitmap(decodedByte);
+            }catch (Exception e)
+            {
+                Log.d("ERRORLOGIN", e+"");
+            }
                     holder.btndelete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {

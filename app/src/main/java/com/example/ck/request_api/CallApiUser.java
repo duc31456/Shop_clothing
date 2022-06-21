@@ -30,7 +30,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface CallApiUser {
-    public static final String LOCALHOST = "172.20.10.2";
+    String LOCALHOST = "172.20.10.13";
     Gson gson = new GsonBuilder().setDateFormat("dd/MM/yyyy").create();
     CallApiUser callApi = new Retrofit.Builder().baseUrl("http://"+LOCALHOST+":3000/").
             addConverterFactory(GsonConverterFactory.create(gson)).
@@ -39,11 +39,11 @@ public interface CallApiUser {
     //Hàm select user
     @GET("http://"+LOCALHOST+":3000/api/v1/users/")
     Call<ArrayList<class_user>> get_ApiUser();
-//    //login
-//    @FormUrlEncoded
-//    @POST("api/v1/login")
-//    Call<class_user> login_ApiUser(@Field("u") String username,
-//                                  @Field("p") String password);
+    //login
+    @FormUrlEncoded
+    @POST("api/v1/login")
+    Call<class_user> login_ApiUser(@Field("u") String username,
+                                  @Field("p") String password);
     //Hàm create user
     @FormUrlEncoded
     @POST("api/v1/signup")
@@ -52,7 +52,8 @@ public interface CallApiUser {
                                   @Field("p") String phone,
                                   @Field("pw") String password,
                                   @Field("rpw") String resetpassword,
-                                  @Field("n") String name);
+                                  @Field("n") String name,
+                                  @Field("role") String role);
 
     //Hàm select product home
     @GET("api/v1/products/")
@@ -77,6 +78,13 @@ public interface CallApiUser {
     @GET("http://"+LOCALHOST+":3000/api/v1/users/{id}")
     Call<ArrayList<class_user>> getGioHang(@Path("id") String iduser);
 
+    // hàm update review
+    @FormUrlEncoded
+    @PATCH("api/v1/products/{idProduct}/review")
+    Call<class_review> updatereview(@Path("idProduct") String idProduct,
+                                   @Field("username") String username,
+                                   @Field("rate") int rate,
+                                   @Field("feedback") String feedback);
     // hàm update giỏ hàng
     @FormUrlEncoded
     @PATCH("api/v1/users/{id}/cart")
@@ -87,10 +95,14 @@ public interface CallApiUser {
     //Xóa item trong giỏ hàng
     @DELETE("api/v1/users/1/cart/{index}")
     Call<Void> deleteBook(@Path("index") int vitri);
+    //Xóa toàn bộ item trong giỏ hàng khi thanh toán thành công
+
+    @DELETE("api/v1/users/{id}/cart/")
+    Call<Void> deleteAllCart(@Path("id") String iduser);
 
     //Hàm select order
-    @GET("api/v1/ordereds/")
-    Call<ArrayList<class_order>> getApiOrder();
+    @GET("api/v1/ordereds/user/{iduser}")
+    Call<ArrayList<class_order>> getApiOrder(@Path("iduser") String iduser);
 
     //Hàm insert order
     @FormUrlEncoded

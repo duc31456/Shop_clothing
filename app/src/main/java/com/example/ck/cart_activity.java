@@ -44,6 +44,7 @@ public class cart_activity extends AppCompatActivity {
     public static giohang_adapter adapter;
     public static ArrayList<cart_item>cart_user = new ArrayList<>();
     public static Integer TONGGIATRI = 0;
+    public static String link_sanpham="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,17 +68,24 @@ public class cart_activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 onBackPressed();
+                finish();
             }
         });
         thanhtoan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(cart_activity.this, DeliveryActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("thanhtoan", cart_user);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                finish();
+                if (cart_user.isEmpty())
+                {
+                    Toast.makeText(cart_activity.this, "Bạn chưa có sản phẩm nào trong giỏ hàng!" +
+                            "", Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent intent = new Intent(cart_activity.this, DeliveryActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("thanhtoan", cart_user);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 
@@ -93,7 +101,8 @@ public class cart_activity extends AppCompatActivity {
             Integer soluong = bundle.getInt("soluong", 1);
             String size = bundle.getString("size", "1234");
             Integer gia_sp = bundle.getInt("gia_sp", 1);
-            cart_user.add(new cart_item(id_sp, ten_sp, soluong, size, gia_sp));
+            Log.d("LINK", link_sanpham);
+            cart_user.add(new cart_item(id_sp, ten_sp, soluong, size, gia_sp, link_sanpham));
             TONGGIATRI = TONGGIATRI + (gia_sp * soluong);
         }
 

@@ -10,18 +10,10 @@
         android:id="@+id/btnpdf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="150dp"
+        android:layout_marginLeft="140dp"
         android:layout_marginTop="680dp"
-        android:text="In hóa đơn"
+        android:text="Về trang chủ"
         android:visibility="invisible" />
-
-    <ImageView
-        android:id="@+id/btntrangchu"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="330dp"
-        android:layout_marginTop="28dp"
-        android:src="@drawable/ic_home" />
 
     <Button
         android:id="@+id/btnthanhtoandonhang"

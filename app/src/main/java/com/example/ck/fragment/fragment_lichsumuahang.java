@@ -89,18 +89,22 @@ public class fragment_lichsumuahang extends Fragment {
 
     private void CallApiOrder()
     {
-        CallApiUser.callApi.getApiOrder().enqueue(new Callback<ArrayList<class_order>>() {
+        CallApiUser.callApi.getApiOrder(product_activity.iduser).enqueue(new Callback<ArrayList<class_order>>() {
             @Override
             public void onResponse(Call<ArrayList<class_order>> call, Response<ArrayList<class_order>> response) {
                 orders = response.body();
-                Log.d("ORDER", orders.toString());
-                adapter.setdata(orders);
-                recyclerView.setAdapter(adapter);
+                Log.d("ORDER1", response.body() +"");
+                if(response.isSuccessful())
+                {
+                      Log.d("ORDER", orders.toString());
+                    adapter.setdata(orders);
+                    recyclerView.setAdapter(adapter);
+                }
             }
 
             @Override
             public void onFailure(Call<ArrayList<class_order>> call, Throwable t) {
-
+                Log.d("ORDER", t +"");
             }
         });
     }

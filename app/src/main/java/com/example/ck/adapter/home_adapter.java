@@ -1,7 +1,10 @@
 package com.example.ck.adapter;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Paint;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,11 +61,15 @@ public class home_adapter extends RecyclerView.Adapter<home_adapter.home_viewHol
             // thêm gạch cho giá ban đầu chưa khuyến mãi
             holder.giabandau.setPaintFlags(holder.giabandau.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             holder.mota.setText(list.getName());
-            String url = "http://" + CallApiUser.LOCALHOST + ":3000/api/v1/products/" + list.getId().trim() + "/image";
-            if (!url.isEmpty()) {
-                Glide.with(context).load(url).into(holder.hinh);
-            } else {
-                Log.d("AAA", "Không thể load ảnh!");
+            Log.d("ERRORLOGIN", list.getLink_image()+"");
+            try {
+                byte[] decodedString = Base64.decode(list.getLink_image().substring(23), Base64.DEFAULT);
+                // Glide.with(context).load(decodedString).into(holder.hinh);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                holder.hinh.setImageBitmap(decodedByte);
+            }catch (Exception e)
+            {
+                //Log.d("ERRORLOGIN", e+"");
             }
             holder.giabandau.setText(String.valueOf(list.getPrice()));
             holder.giaban.setText(String.valueOf(list.getPrice() - (list.getDiscount() * 100)));
